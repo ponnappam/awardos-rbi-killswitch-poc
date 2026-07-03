@@ -1,21 +1,10 @@
-# Ollama models - too large for git
-/root/.ollama/
-*.gguf
-*.bin
-
-# Docker volumes/data
-data/
-logs/
+__pycache__/
+*.pyc
 *.log
-
-# Local env
 .env
-.env.local
-*.bak
-
-# Mac junk
+.venv/
+venv/
 .DS_Store
-
-# IDE
-.vscode/
-.idea/
+*.swp
+ollama-data/
+hsm-data/

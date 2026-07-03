@@ -1,0 +1,1 @@
+Export your 2 Mermaid diagrams as architecture.png and realistic-suse-env.png into docs/images/
