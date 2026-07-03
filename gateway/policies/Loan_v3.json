@@ -1,0 +1,1 @@
+{"name": "Loan_v3", "steps": [{"id": "step1", "rule": "customer.verified == true"},{"id": "step2", "rule": "income >= 1000000"},{"id": "step3", "rule": "credit_score >= 700"}]}

@@ -1,0 +1,55 @@
+networks:
+  bank-ai-net:
+    driver: bridge
+services:
+  rekor:
+    image: ghcr.io/sigstore/rekor/rekor-server:v1.3.6
+    container_name: rbi-rekor
+    command: serve
+    ports:
+      - "9000:3000"
+    networks:
+      - bank-ai-net
+    environment:
+      - REKOR_ENV8dev
+    volumes:
+      - rekor-data:/var/run/attestation
+    restart: "no"
+  softhsm:
+    image: ubuntu:22.04
+    container_name: bank-hsm
+    command: bash -c "apt update && apt install -y softhsm2 && softhsm2-util --init-token --slot 0 --label 'BankRBI' --pin 1234 --so-pin 1234 && tail -f /dev/null"
+    networks:
+      - bank-ai-net
+    volumes:
+      - hsm-data:/var/lib/softhsm/tokens
+    restart: "no"
+  awardos-gateway:
+    build: ./gateway
+    container_name: awardos-gateway
+    ports:
+      - "8443:443"
+    networks:
+      - bank-ai-net
+    depends_on:
+      - llm
+    environment:
+      - LLM_ENDPOINT=http://llm:8080
+      - HSM_PIN=1234
+    volumes:
+      - ./gateway/policies:/app/policies
+      - ./gateway/graph:/app/graph
+  llm:
+    image: ollama/ollama:0.1.26
+    container_name: balk-llm
+    command: serve
+    networks:
+      - bank-ai-net
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_NOPULL=1
+volumes:
+  rekor-data: {}
+  hsm-data: {}
+  ollama-data: {}

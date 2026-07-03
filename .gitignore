@@ -1,0 +1,21 @@
+# Ollama models - too large for git
+/root/.ollama/
+*.gguf
+*.bin
+
+# Docker volumes/data
+data/
+logs/
+*.log
+
+# Local env
+.env
+.env.local
+*.bak
+
+# Mac junk
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
