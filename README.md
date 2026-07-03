@@ -30,3 +30,6 @@ docker compose logs -f balk-llm
 ```bash
 curl http://localhost:8443/v1/models
 ```
+# awardos-suse-rbi-demo
+kill switch narrative / demo
+>>>>>>> a4c3f61c80035cd81246e3493e9c0640ad9b8444
